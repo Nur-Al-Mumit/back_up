@@ -2,12 +2,16 @@
 const inputValue = () => {
   const inputAria = document.getElementById("input-aria");
   const inputText = inputAria.value;
-  console.log(inputText);
-  inputAria.value = "";
-  const url = ` https://openapi.programming-hero.com/api/phones?search=${inputText}`;
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => displayItems(data.data));
+  if (inputText == "" || Number(inputText)){
+    alert("please enter right option");
+  } else {
+    console.log(inputText);
+    inputAria.value = "";
+    const url = ` https://openapi.programming-hero.com/api/phones?search=${inputText}`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => displayItems(data.data));
+  }
 };
 // Show the Fetch data on UI
 const displayItems = (inputData) => {
@@ -41,22 +45,22 @@ const allPhoneDetails = (detailsId) => {
     .then((res) => res.json())
     .then((data) => showPhoneDetails(data));
 };
-const showPhoneDetails = (xyz) => {
+const showPhoneDetails = (allDetails) => {
   const phoneDetails = document.getElementById("phone-details");
   const detailsDiv = document.createElement("div");
   phoneDetails.textContent = "";
   detailsDiv.innerHTML = `
     <div class="card mx-auto w-50 d-flex flex-row mb-4">
-    <img src="${xyz.data.image}" class="card-img-top" alt="">
+    <img src="${allDetails.data.image}" class="card-img-top" alt="">
     <div class="card-body">
-    <h1 class="card-title">${xyz.data.name}</h1>
-    <p class="card-text">- ${xyz.data.releaseDate}</p>
-      <p class="card-text">- ${xyz.data.mainFeatures.storage}</p>
-      <p class="card-text">- ${xyz.data.mainFeatures.displaySize}</p>
-      <p class="card-text">- ${xyz.data.mainFeatures.chipSet}</p>
-      <p class="card-text">- ${xyz.data.mainFeatures.memory}</p>
-      <p class="card-text">- ${xyz.data.mainFeatures.sensors}</p>
-      <a href="#" class="btn btn-primary">Buy Now</a>
+    <h1 class="card-title">${allDetails.data.name}</h1>
+    <p class="card-text">- ${allDetails.data.release}</p>;
+    <p class="card-text">- ${allDetails.data.mainFeatures.storage}</p>
+    <p class="card-text">- ${allDetails.data.mainFeatures.displaySize}</p>
+    <p class="card-text">- ${allDetails.data.mainFeatures.chipSet}</p>
+    <p class="card-text">- ${allDetails.data.mainFeatures.memory}</p>
+    <p class="card-text">- ${allDetails.data.mainFeatures.sensors}</p>
+    <a href="#" class="btn btn-primary">Buy Now</a>
     </div>
   </div>
   `;
