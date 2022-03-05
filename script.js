@@ -14,9 +14,11 @@ const inputValue = () => {
   }
 };
 // Show the Fetch data on UI
+const phoneDetails = document.getElementById("phone-details");
 const displayItems = (inputData) => {
   const display = document.getElementById("display-container");
   display.textContent = "";
+  phoneDetails.textContent = "";
   inputData.forEach((inputDatas) => {
     const div = document.createElement("div");
     div.classList.add("col");
@@ -46,7 +48,6 @@ const allPhoneDetails = (detailsId) => {
     .then((data) => showPhoneDetails(data));
 };
 const showPhoneDetails = (allDetails) => {
-  const phoneDetails = document.getElementById("phone-details");
   const detailsDiv = document.createElement("div");
   phoneDetails.textContent = "";
   detailsDiv.innerHTML = `
