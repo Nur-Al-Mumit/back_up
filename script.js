@@ -1,3 +1,4 @@
+// Take the input and Fetch the Phones data link
 const inputValue = () => {
   const inputAria = document.getElementById("input-aria");
   const inputText = inputAria.value;
@@ -8,7 +9,7 @@ const inputValue = () => {
     .then((res) => res.json())
     .then((data) => displayItems(data.data));
 };
-
+// Show the Fetch data on UI
 const displayItems = (inputData) => {
   const display = document.getElementById("display-container");
   display.textContent = "";
@@ -16,7 +17,7 @@ const displayItems = (inputData) => {
     const div = document.createElement("div");
     div.classList.add("col");
     div.innerHTML = `
-      <div class="card" onclick="allPhoneDetails('${inputDatas.slug}')">
+      <div class="card">
                 <img src=${inputDatas.image} class="card-img-top w-50"/>
                 <div class="card-body">
                   <h5 class="card-title">${inputDatas.phone_name}</h5>
@@ -25,9 +26,39 @@ const displayItems = (inputData) => {
                     lead-in to additional content. This content is a little bit
                     longer.
                   </p>
+                  <button  onclick="allPhoneDetails('${inputDatas.slug}')" type="button" class="btn btn-outline-secondary">Details</button>
                 </div>
               </div>
               `;
     display.appendChild(div);
   });
+};
+// To make the Details button dynamic and show phone's Details on UI
+
+const allPhoneDetails = (detailsId) => {
+  const detailsUrl = `https://openapi.programming-hero.com/api/phone/${detailsId}`;
+  fetch(detailsUrl)
+    .then((res) => res.json())
+    .then((data) => showPhoneDetails(data));
+};
+const showPhoneDetails = (xyz) => {
+  const phoneDetails = document.getElementById("phone-details");
+  const detailsDiv = document.createElement("div");
+  phoneDetails.textContent = "";
+  detailsDiv.innerHTML = `
+    <div class="card mx-auto w-50 d-flex flex-row mb-4">
+    <img src="${xyz.data.image}" class="card-img-top" alt="">
+    <div class="card-body">
+    <h1 class="card-title">${xyz.data.name}</h1>
+    <p class="card-text">- ${xyz.data.releaseDate}</p>
+      <p class="card-text">- ${xyz.data.mainFeatures.storage}</p>
+      <p class="card-text">- ${xyz.data.mainFeatures.displaySize}</p>
+      <p class="card-text">- ${xyz.data.mainFeatures.chipSet}</p>
+      <p class="card-text">- ${xyz.data.mainFeatures.memory}</p>
+      <p class="card-text">- ${xyz.data.mainFeatures.sensors}</p>
+      <a href="#" class="btn btn-primary">Buy Now</a>
+    </div>
+  </div>
+  `;
+  phoneDetails.appendChild(detailsDiv);
 };
