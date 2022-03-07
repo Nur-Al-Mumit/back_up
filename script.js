@@ -3,14 +3,13 @@ const inputValue = () => {
   const inputAria = document.getElementById("input-aria");
   const inputText = inputAria.value;
   if (inputText == "" || Number(inputText)) {
-    alert("please enter right option");
+    alert("We can't find any phone");
   } else {
-    console.log(inputText);
     inputAria.value = "";
     const url = ` https://openapi.programming-hero.com/api/phones?search=${inputText}`;
     fetch(url)
-      .then((res) => res.json())
-      .then((data) => displayItems(data.data));
+    .then((res) => res.json())
+    .then((data) => displayItems(data.data));
   }
 };
 // Show the Fetch data on UI
@@ -26,7 +25,8 @@ const displayItems = (inputData) => {
       <div>
                 <img src=${inputDatas.image} class=""/>
                 <div class="w-full">
-                  <h5 class="w-full">${inputDatas.phone_name}</h5>
+                  <h2 class="text-3xl">${inputDatas.phone_name}</h2>
+                  <p>${inputDatas.brand}</p>
                   <p class="w-full">
                     This is a longer card with supporting text below as a natural
                     lead-in to additional content. This content is a little bit
@@ -55,6 +55,7 @@ const showPhoneDetails = (allDetails) => {
   const commonDetails = () => {
     detailsDiv.innerHTML = `
     <div>
+    <p>- ${allDetails.data.brand}</p>
     <p>- ${allDetails.data.mainFeatures.storage}</p>
     <p>- ${allDetails.data.mainFeatures.displaySize}</p>
     <p>- ${allDetails.data.mainFeatures.chipSet}</p>
@@ -71,7 +72,7 @@ const showPhoneDetails = (allDetails) => {
     releaseDateCondition.innerHTML = `
     <div><img src="${allDetails.data.image}"></div>
     <h1 class="text-3xl">${allDetails.data.name}</h1>
-    <p>- Release Date not found</p>;
+    <p>- Release Date not found</p>
     `;
     phoneDetails.appendChild(releaseDateCondition);
     console.log(commonDetails());
@@ -79,7 +80,7 @@ const showPhoneDetails = (allDetails) => {
     releaseDateCondition.innerHTML = `
     <div><img src="${allDetails.data.image}"></div>
     <h1 class="text-3xl">${allDetails.data.name}</h1>
-    <p>- ${allDetails.data.releaseDate}</p>;
+    <p>- ${allDetails.data.releaseDate}</p>
     `;
     commonDetails();
     phoneDetails.appendChild(releaseDateCondition);
