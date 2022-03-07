@@ -22,20 +22,14 @@ const displayItems = (inputData) => {
     display.textContent = "";
     phoneDetails.textContent = "";
     inputData.forEach((inputDatas) => {
+      console.log(inputData.length);
       const div = document.createElement("div");
-      // div.classList.add("grid grid-cols-3");
       div.innerHTML = `
-        <div>
-        <img src=${inputDatas.image} class=""/>
+        <div><img src=${inputDatas.image} class=""/>
         <div class="w-full">
         <h2 class="text-3xl">${inputDatas.phone_name}</h2>
-        <p>${inputDatas.brand}</p>
-        <p class="w-full">
-        This is a longer card with supporting text below as a natural
-        lead-in to additional content. This content is a little bit
-        longer.
-        </p>
-        <button  onclick="allPhoneDetails('${inputDatas.slug}')" type="button" class="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-5 rounded-full">Details</button>
+        <p class="mb-4">${inputDatas.brand}</p>
+        <button onclick="allPhoneDetails('${inputDatas.slug}')" class="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-5 rounded-full">Details</button>
         </div>
         </div>
         `;
@@ -47,6 +41,7 @@ const displayItems = (inputData) => {
 
 const allPhoneDetails = (detailsId) => {
   const detailsUrl = `https://openapi.programming-hero.com/api/phone/${detailsId}`;
+  console.log(detailsId);
   fetch(detailsUrl)
     .then((res) => res.json())
     .then((data) => showPhoneDetails(data));
@@ -55,26 +50,41 @@ const showPhoneDetails = (allDetails) => {
   const detailsDiv = document.createElement("div");
   const releaseDateCondition = document.createElement("div");
   phoneDetails.textContent = "";
-  // detailsDiv.classList.add("w-full");
+  // For the common Details in phones
   const commonDetails = () => {
-    detailsDiv.innerHTML = `
-    <div>
-    <p>- Brand: ${allDetails.data.brand}</p>
-    <p>- Storage: ${allDetails.data.mainFeatures.storage}</p>
-    <p>- Display: ${allDetails.data.mainFeatures.displaySize}</p>
-    <p>- ChipSet: ${allDetails.data.mainFeatures.chipSet}</p>
-    <p>- Memory: ${allDetails.data.mainFeatures.memory}</p>
-    <p>- WLAN: ${allDetails.data.others.WLAN}</p>
-    <p>- Bluetooth: ${allDetails.data.others.Bluetooth}</p>
-    <p>- GPS: ${allDetails.data.others.GPS} NFC:${allDetails.data.others.NFC} Radio:${allDetails.data.others.Radio}</p>
-    <p>- USB: ${allDetails.data.others.USB}</p>
-    <p class="mb-4">- Sensors: ${allDetails.data.mainFeatures.sensors}</p>
-    <a href="#" class="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-5 rounded-full w-full">Buy Now</a>
-    </div>
-  </div>
-  `;
+    // Handle the error if phone doesn't carry Others
+    if (!allDetails.data.others) {
+      detailsDiv.innerHTML = `
+      <div>
+      <p>- Brand: ${allDetails.data.brand}</p>
+      <p>- Storage: ${allDetails.data.mainFeatures.storage}</p>
+      <p>- Display: ${allDetails.data.mainFeatures.displaySize}</p>
+      <p>- ChipSet: ${allDetails.data.mainFeatures.chipSet}</p>
+      <p>- Memory: ${allDetails.data.mainFeatures.memory}</p>
+      <p class="mb-4">- Sensors: ${allDetails.data.mainFeatures.sensors}</p>
+      <a href="#" class="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-5 rounded-full w-full">Buy Now</a>
+      </div>
+      `;
+    } else {
+      detailsDiv.innerHTML = `
+      <div>
+      <p>- Brand: ${allDetails.data.brand}</p>
+      <p>- Storage: ${allDetails.data.mainFeatures.storage}</p>
+      <p>- Display: ${allDetails.data.mainFeatures.displaySize}</p>
+      <p>- ChipSet: ${allDetails.data.mainFeatures.chipSet}</p>
+      <p>- Memory: ${allDetails.data.mainFeatures.memory}</p>
+      <p>- WLAN: ${allDetails.data.others.WLAN}</p>
+      <p>- Bluetooth: ${allDetails.data.others.Bluetooth}</p>
+      <p>- GPS: ${allDetails.data.others.GPS} NFC:${allDetails.data.others.NFC} Radio:${allDetails.data.others.Radio}</p>
+      <p>- USB: ${allDetails.data.others.USB}</p>
+      <p class="mb-4">- Sensors: ${allDetails.data.mainFeatures.sensors}</p>
+      <a href="#" class="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-5 rounded-full w-full">Buy Now</a>
+      </div>
+      `;
+    }
     releaseDateCondition.appendChild(detailsDiv);
   };
+  // If the phone haven't any Release Date
   if (allDetails.data.releaseDate == "") {
     commonDetails();
     releaseDateCondition.innerHTML = `
