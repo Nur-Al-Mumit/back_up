@@ -55,12 +55,16 @@ const showPhoneDetails = (allDetails) => {
   const commonDetails = () => {
     detailsDiv.innerHTML = `
     <div>
-    <p>- ${allDetails.data.brand}</p>
-    <p>- ${allDetails.data.mainFeatures.storage}</p>
-    <p>- ${allDetails.data.mainFeatures.displaySize}</p>
-    <p>- ${allDetails.data.mainFeatures.chipSet}</p>
-    <p>- ${allDetails.data.mainFeatures.memory}</p>
-    <p class="mb-4">- ${allDetails.data.mainFeatures.sensors}</p>
+    <p>- Brand: ${allDetails.data.brand}</p>
+    <p>- Storage: ${allDetails.data.mainFeatures.storage}</p>
+    <p>- Display: ${allDetails.data.mainFeatures.displaySize}</p>
+    <p>- ChipSet: ${allDetails.data.mainFeatures.chipSet}</p>
+    <p>- Memory: ${allDetails.data.mainFeatures.memory}</p>
+    <p>- WLAN: ${allDetails.data.others.WLAN}</p>
+    <p>- Bluetooth: ${allDetails.data.others.Bluetooth}</p>
+    <p>- GPS: ${allDetails.data.others.GPS} NFC:${allDetails.data.others.NFC} Radio:${allDetails.data.others.Radio}</p>
+    <p>- USB: ${allDetails.data.others.USB}</p>
+    <p class="mb-4">- Sensors: ${allDetails.data.mainFeatures.sensors}</p>
     <a href="#" class="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-5 rounded-full w-full">Buy Now</a>
     </div>
   </div>
