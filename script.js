@@ -21,8 +21,8 @@ const displayItems = (inputData) => {
     const display = document.getElementById("display-container");
     display.textContent = "";
     phoneDetails.textContent = "";
-    inputData.forEach((inputDatas) => {
-      console.log(inputData.length);
+    const sliceData = inputData.slice(0, 20);
+    sliceData.forEach((inputDatas) => {
       const div = document.createElement("div");
       div.innerHTML = `
         <div><img src=${inputDatas.image} class=""/>
