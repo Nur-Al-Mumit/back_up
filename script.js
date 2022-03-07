@@ -2,7 +2,7 @@
 const inputValue = () => {
   const inputAria = document.getElementById("input-aria");
   const inputText = inputAria.value;
-  if (inputText == "" || Number(inputText)){
+  if (inputText == "" || Number(inputText)) {
     alert("please enter right option");
   } else {
     console.log(inputText);
@@ -49,14 +49,13 @@ const allPhoneDetails = (detailsId) => {
 };
 const showPhoneDetails = (allDetails) => {
   const detailsDiv = document.createElement("div");
-  // detailsDiv.classList.add("w-full");
+  const releaseDateCondition = document.createElement("div");
   phoneDetails.textContent = "";
-  detailsDiv.innerHTML = `
-    <div class="flex flex-col md:flex-row lg:flex-row justify-center lg:justify-around md:justify-around sm:justify-around">
+  // detailsDiv.classList.add("w-full");
+  const commonDetails = () => {
+    detailsDiv.innerHTML = `
     <div><img src="${allDetails.data.image}"></div>
-    <div class="w-full">
-    <h1>${allDetails.data.name}</h1>
-    <p>- ${allDetails.data.releaseDate}</p>;
+    <div>
     <p>- ${allDetails.data.mainFeatures.storage}</p>
     <p>- ${allDetails.data.mainFeatures.displaySize}</p>
     <p>- ${allDetails.data.mainFeatures.chipSet}</p>
@@ -66,5 +65,22 @@ const showPhoneDetails = (allDetails) => {
     </div>
   </div>
   `;
-  phoneDetails.appendChild(detailsDiv);
+  releaseDateCondition.appendChild(detailsDiv);
+  };
+  if (allDetails.data.releaseDate == "") {
+    commonDetails();
+    releaseDateCondition.innerHTML = `
+    <h1 class="text-3xl">${allDetails.data.name}</h1>
+    <p>- Release Date not found</p>;
+    `;
+    phoneDetails.appendChild(releaseDateCondition);
+    console.log(commonDetails());
+  } else {
+    releaseDateCondition.innerHTML = `
+    <h1 class="text-3xl">${allDetails.data.name}</h1>
+    <p>- ${allDetails.data.releaseDate}</p>;
+    `;
+    commonDetails();
+    phoneDetails.appendChild(releaseDateCondition);
+  }
 };
