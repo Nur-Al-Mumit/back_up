@@ -54,7 +54,6 @@ const showPhoneDetails = (allDetails) => {
   // detailsDiv.classList.add("w-full");
   const commonDetails = () => {
     detailsDiv.innerHTML = `
-    <div><img src="${allDetails.data.image}"></div>
     <div>
     <p>- ${allDetails.data.mainFeatures.storage}</p>
     <p>- ${allDetails.data.mainFeatures.displaySize}</p>
@@ -65,11 +64,12 @@ const showPhoneDetails = (allDetails) => {
     </div>
   </div>
   `;
-  releaseDateCondition.appendChild(detailsDiv);
+    releaseDateCondition.appendChild(detailsDiv);
   };
   if (allDetails.data.releaseDate == "") {
     commonDetails();
     releaseDateCondition.innerHTML = `
+    <div><img src="${allDetails.data.image}"></div>
     <h1 class="text-3xl">${allDetails.data.name}</h1>
     <p>- Release Date not found</p>;
     `;
@@ -77,6 +77,7 @@ const showPhoneDetails = (allDetails) => {
     console.log(commonDetails());
   } else {
     releaseDateCondition.innerHTML = `
+    <div><img src="${allDetails.data.image}"></div>
     <h1 class="text-3xl">${allDetails.data.name}</h1>
     <p>- ${allDetails.data.releaseDate}</p>;
     `;
