@@ -61,7 +61,7 @@ const showPhoneDetails = (allDetails) => {
       <p>- Display: ${allDetails.data.mainFeatures.displaySize}</p>
       <p>- ChipSet: ${allDetails.data.mainFeatures.chipSet}</p>
       <p>- Memory: ${allDetails.data.mainFeatures.memory}</p>
-      <p class="mb-4">- Sensors: ${allDetails.data.mainFeatures.sensors}</p>
+      <p class="mb-4 break-words">- Sensors: ${allDetails.data.mainFeatures.sensors}</p>
       <a href="#" class="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-5 rounded-full w-full">Buy Now</a>
       </div>
       `;
@@ -77,7 +77,7 @@ const showPhoneDetails = (allDetails) => {
       <p>- Bluetooth: ${allDetails.data.others.Bluetooth}</p>
       <p>- GPS: ${allDetails.data.others.GPS} NFC:${allDetails.data.others.NFC} Radio:${allDetails.data.others.Radio}</p>
       <p>- USB: ${allDetails.data.others.USB}</p>
-      <p class="mb-4">- Sensors: ${allDetails.data.mainFeatures.sensors}</p>
+      <p class="mb-4 break-words">- Sensors:${allDetails.data.mainFeatures.sensors}</p>
       <a href="#" class="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-5 rounded-full w-full">Buy Now</a>
       </div>
       `;
